@@ -1,36 +1,46 @@
 class Solution {
     public void setZeroes(int[][] matrix) {
-        int row=matrix.length;
-        int col=matrix[0].length;
-        int[][] nums=new int[row][col];
+        int i = 0;
+        int j = 0;
+        int lenrow = matrix.length;
+        int lencol = matrix[0].length;
+        int[][] copy = new int[lenrow][lencol];
 
-        for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
-                nums[i][j]=matrix[i][j];
+        while (i != lenrow) {
+            copy[i][j] = matrix[i][j];
+            j++;
+            if (j == lencol) {
+                j = 0;
+                i++;
+            }
+        }
+        i = 0;
+        j = 0;
+
+        while (i != lenrow) {
+            if (matrix[i][j] == 0) {
+                for (int k = 0; k < lencol; k++) {
+                    copy[i][k] = 0;
+                }
+                for (int k = 0; k < lenrow; k++) {
+                    copy[k][j] = 0;
+                }
+            }
+            j++;
+            if (j == lencol) {
+                j = 0;
+                i++;
             }
         }
 
-        int m=0;
-        int n=0;
-        while(m<row){
-            if(matrix[m][n]==0){
-                for(int i=0;i<col;i++){
-                    nums[m][i]=0;
-                }
-                for(int i=0;i<row;i++){
-                    nums[i][n]=0;
-                }
-            }
-            n++;
-            if(n==col){
-                n=0;
-                m=m+1;
-            }
-        }
-
-        for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
-                matrix[i][j]=nums[i][j];
+        i = 0;
+        j = 0;
+        while (i != lenrow) {
+            matrix[i][j] = copy[i][j];
+            j++;
+            if (j == lencol) {
+                j = 0;
+                i++;
             }
         }
     }
